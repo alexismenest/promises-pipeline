@@ -1,0 +1,36 @@
+{
+  "name": "promises-pipeline",
+  "version": "1.0.0",
+  "description": "Sequentially executes an array of functions whose return values are promises, passing the output of one function as the input of the next one",
+  "author": {
+    "name": "Alexis Menest",
+    "email": "alexis.menest@gmail.com",
+    "url": "https://twitter.com/alexismenest"
+  },
+  "main": "lib/index.js",
+  "keywords": [
+    "promise",
+    "promises",
+    "promises-a",
+    "promises-aplus",
+    "pipeline",
+    "chain"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexismenest/promises-pipeline.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6"
+  },
+  "devDependencies": {
+    "tape": "^4.6.2"
+  }
+}
