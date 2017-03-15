@@ -4,6 +4,8 @@ Sequentially executes an array of functions whose return values are promises, pa
 
 [![Build status](https://travis-ci.org/alexismenest/promises-pipeline.svg?branch=master)](https://travis-ci.org/alexismenest/promises-pipeline)
 
+[![Coverage Status](https://coveralls.io/repos/github/alexismenest/promises-pipeline/badge.svg?branch=master)](https://coveralls.io/github/alexismenest/promises-pipeline?branch=master)
+
 
 ## Installation
 
