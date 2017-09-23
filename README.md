@@ -1,6 +1,6 @@
 # promises-pipeline
 
-Sequentially executes an array of functions whose return values are promises, passing the output of one function as the input of the next one
+Sequentially run promise-returning functions, passing the result of each one to its next
 
 [![Build status](https://travis-ci.org/alexismenest/promises-pipeline.svg?branch=master)](https://travis-ci.org/alexismenest/promises-pipeline)
 
@@ -17,8 +17,8 @@ npm install promises-pipeline --save
 
 ### pipeline(tasks[, initialInput])
 
-* `tasks` `{Array<Function>}` An array of functions whose return values are promises
-* `initialInput` `{*}` An optional initial input that can be of any type
+* `tasks` `{Iterable<Function>}` An iterable of promise-returning functions
+* `initialInput` `{any}` An optional initial input of any type
 
 `pipeline()` returns a promise that resolves when all of the promises in the given functions have resolved or, if any of the promises rejects, rejects immediately with the reason of the first promise that rejected, discarding all the other promises whether or not they have resolved. 
 
@@ -27,59 +27,32 @@ npm install promises-pipeline --save
 ```js
 const pipeline = require('promises-pipeline');
 
-const errorTask = function (input) {
+const errorTask = input => { return Promise.reject(new Error('Failed generating "Hello, World!"')); };
+const helloTask = () => { return Promise.resolve('Hello,'); };
+const hiTask    = input => { return Promise.resolve(`Hi${input}`); };
+const worldTask = input => { return Promise.resolve(`${input} World!`); };
 
-  const err = new Error('Failed generating "Hello, World!"');
+const helloWorldTasks = new Map();
+helloWorldTasks.set('helloTask', helloTask);
+helloWorldTasks.set('worldTask', worldTask);
 
-  return Promise.reject(err);
-};
+const hiWorldTasks = new Set();
+hiWorldTasks.add(hiTask);
+hiWorldTasks.add(worldTask);
 
-const helloTask = function () {
+const failureTasks = [helloTask, errorTask, worldTask];
 
-  const output = 'Hello,';
+pipeline(helloWorldTasks.values())
+  .then(output => console.log(output))// => 'Hello, World!'
+  .catch(err => console.error(err.message));// Never reached
 
-  return Promise.resolve(output);
-};
+pipeline(hiWorldTasks, ',')
+  .then(output => console.log(output))// => 'Hi, World!'
+  .catch(err => console.error(err.message));// Never reached
 
-const hiTask = function (input) {
-
-  const output = `Hi${input}`;
-
-  return Promise.resolve(output);
-};
-
-const worldTask = function (input) {
-
-  const output = `${input} World!`;
-  
-  return Promise.resolve(output);
-};
-
-const errorHelloWorldTasks = [helloTask, errorTask, worldTask];
-const hiWorldInitialInput = ',';
-const hiWorldTasks = [hiTask, worldTask];
-const normalHelloWorldTasks = [helloTask, worldTask];
-
-pipeline(normalHelloWorldTasks)
-  .then((output) => {
-
-    console.log(output);// 'Hello, World!'
-  })
-  .catch(() => {});// Never reached
-
-pipeline(hiWorldTasks, hiWorldInitialInput)
-  .then((output) => {
-
-    console.log(output);// 'Hi, World!'
-  })
-  .catch(() => {});// Never reached
-
-pipeline(errorHelloWorldTasks)
-  .then(() => {})// Never reached
-  .catch((err) => {
-
-    console.error(err.message);// 'Failed generating "Hello, World!"'
-  });
+pipeline(failureTasks)
+  .then(output => console.log(output))// Never reached
+  .catch(err => console.error(err.message));// => 'Failed generating "Hello, World!"'
 ```
 
 ## Tests

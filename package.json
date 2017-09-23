@@ -1,7 +1,7 @@
 {
   "name": "promises-pipeline",
-  "version": "1.0.1",
-  "description": "Sequentially executes an array of functions whose return values are promises, passing the output of one function as the input of the next one",
+  "version": "1.0.2",
+  "description": "Sequentially run promise-returning functions, passing the result of each one to its next",
   "author": {
     "name": "Alexis Menest",
     "email": "alexis.menest@gmail.com",
@@ -15,8 +15,17 @@
     "promises-aplus",
     "pipeline",
     "sequence",
+    "sequential",
     "chain",
-    "waterfall"
+    "waterfall",
+    "series",
+    "serial",
+    "reduce",
+    "task",
+    "tasks",
+    "iterable",
+    "iterator",
+    "bluebird"
   ],
   "repository": {
     "type": "git",
