@@ -1,6 +1,6 @@
 {
   "name": "promises-pipeline",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Sequentially run promise-returning functions, passing the result of each one to its next",
   "author": {
     "name": "Alexis Menest",
@@ -20,6 +20,7 @@
     "waterfall",
     "series",
     "serial",
+    "async",
     "reduce",
     "task",
     "tasks",
@@ -39,10 +40,10 @@
     "test": "istanbul cover tape ./test/index.js"
   },
   "dependencies": {
-    "bluebird": "^3.5.0"
+    "bluebird": "^3.5.1"
   },
   "devDependencies": {
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "istanbul": "^0.4.5",
     "tape": "^4.8.0"
   }

@@ -4,7 +4,7 @@ const test = require('tape');
 
 const pipeline = require('../lib');
 
-const errorTask = () => { return Promise.reject(new Error('Failed generating Fibonacci sequence')); };
+const errorTask = () => Promise.reject(new Error('Failed generating Fibonacci sequence'));
 
 const fibonacci = (num, memo) => {
 
@@ -19,8 +19,8 @@ const getFibonacciTask = num => {
 
   return input => {
 
-    const fibonacciNumber = fibonacci(num, input);
-    input.push(fibonacciNumber);
+    //const fibonacciNumber = fibonacci(num, input);
+    input.push(fibonacci(num, input));
 
     return Promise.resolve(input);
   };
