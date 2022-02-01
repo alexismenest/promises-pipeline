@@ -1,6 +1,6 @@
 {
   "name": "promises-pipeline",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Sequentially run promise-returning functions, passing the result of each one to its next",
   "author": {
     "name": "Alexis Menest",
